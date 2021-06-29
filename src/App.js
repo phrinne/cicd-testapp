@@ -11,7 +11,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          v0.0.5
+          Paulis version 0.0.6
         </p>
         <a
           className="App-link"
