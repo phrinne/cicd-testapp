@@ -18,8 +18,8 @@ jobs:
           node-version: '12.x'
       - name: npm install
         run: npm install
-      #- name: lint
-      #  run: npm run eslint
+      - name: lint
+        run: npm run eslint
       - name: build
         run: npm run build
       #- name: test
@@ -37,9 +37,9 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "cicd-testapp"
           heroku_email: "phrinne@gmail.com"
-          #healthcheck: "https://pokedex-pauli.herokuapp.com/health"
-          #checkstring: "ok"
-          #rollbackonhealthcheckfailed: true
+          healthcheck: "https://cicd-testapp.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
       - uses: actions/checkout@v2
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.33.0
@@ -48,26 +48,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: patch
-      #- name: Slack success
+      #- name: Slack notification
       #  uses: 8398a7/action-slack@v3
-      #  if: ${{ success() }}
       #  with:
       #    status: ${{ job.status }}
       #    fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
       #  env:
       #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #- name: Slack failure
-      #  uses: 8398a7/action-slack@v3
-      #  if: ${{ failure() }}
-      #  with:
-      #    status: custom
-      #    fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-      #   custom_payload: |
-      #      {
-      #        attachments: [{
-      #          color: 'danger',
-      #          text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
-      #        }]
-      #      }
-      #  env:
-      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #  if: always()
