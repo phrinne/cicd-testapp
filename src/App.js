@@ -10,7 +10,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          v0.0.1
+          v0.0.2
         </p>
         <a
           className="App-link"
