@@ -24,12 +24,12 @@ jobs:
         run: npm run build
       - name: test
         run: npm test
-      #- name: e2e tests
-      #  uses: cypress-io/github-action@v2
-      #  with:
-      #    command: npm run test:e2e
-      #    start: npm run start-prod
-      #    wait-on: http://localhost:5000
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12
         if: ${{ github.event_name == 'push' }}
@@ -48,11 +48,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: patch
-      #- name: Slack notification
-      #  uses: 8398a7/action-slack@v3
-      #  with:
-      #    status: ${{ job.status }}
-      #    fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-      #  env:
-      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #  if: always()
+      - name: Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
